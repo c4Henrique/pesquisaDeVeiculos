@@ -1,0 +1,347 @@
+// Variáveis de cores
+:host {
+  --bg-primary: #f9f9f9;
+  --bg-secondary: #ffffff;
+  --text-primary: #102B4E;
+  --text-secondary: #333333;
+  --border-color: #cccccc;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --accent-color: #0066FF;
+  --card-shadow: 0 4px 12px var(--shadow-color);
+  --transition-speed: 0.3s;
+}
+
+:host-context(.dark-theme) {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --border-color: #404040;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+// Estilos do interruptor de tema
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin: 0 10px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: var(--text-primary);
+      
+      &:before {
+        transform: translateX(30px);
+        background-color: #ffd700;
+      }
+
+      .moon {
+        opacity: 0;
+      }
+
+      .sun {
+        opacity: 1;
+      }
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: var(--transition-speed);
+    border-radius: 34px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:before {
+      content: "";
+      position: absolute;
+      height: 26px;
+      width: 26px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: var(--transition-speed);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .moon, .sun {
+      color: white;
+      font-size: 14px;
+      z-index: 1;
+      transition: opacity var(--transition-speed);
+    }
+
+    .moon {
+      margin-left: 7px;
+      opacity: 1;
+    }
+
+    .sun {
+      margin-right: 7px;
+      opacity: 0;
+      color: #ffd700;
+    }
+  }
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-primary);
+  transition: all var(--transition-speed);
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all var(--transition-speed);
+
+  .title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: bold;
+    color: var(--text-primary);
+    
+    a {
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--transition-speed);
+
+      &:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px);
+      }
+
+      svg {
+        transition: transform var(--transition-speed);
+      }
+
+      &:hover svg {
+        transform: rotate(15deg);
+      }
+    }
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .select-car {
+    width: 200px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23102B4E' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.763L10.825 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+
+    &:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+    }
+
+    option {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
+  
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0;
+  }
+}
+
+.vehicle-info {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+  padding: 0 1rem;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .vehicle-image {
+    flex: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed);
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px var(--shadow-color);
+    }
+    
+    img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform var(--transition-speed);
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .vin-box {
+    width: 50%;
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    color: var(--text-primary);
+    transition: all var(--transition-speed);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px var(--shadow-color);
+    }
+
+    @media (max-width: 992px) {
+      width: 100%;
+      padding: 1.5rem;
+    }
+
+    .vin-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+
+      .label {
+        font-size: 1.25rem;
+        color: var(--text-primary);
+      }
+
+      .vin-input, .vin-value {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        border: none;
+        background: transparent;
+        border-bottom: 2px solid var(--border-color);
+        outline: none;
+        padding: 0.2rem 0;
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+        color: var(--text-primary);
+        transition: all var(--transition-speed);
+
+        &:focus {
+          border-color: var(--accent-color);
+        }
+      }
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+
+      li {
+        font-size: 1.1rem;
+        margin: 0.8rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all var(--transition-speed);
+
+        &:hover {
+          background-color: var(--bg-primary);
+        }
+
+        span {
+          font-weight: bold;
+          color: var(--text-secondary);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+ESCOPO DO PROJETO - FORD ANGULAR
+
+1. SISTEMA DE AUTENTICAÇÃO
+- Login e registro de usuários
+- Proteção de rotas com guardas de autenticação
+- Validação de formulários
+- Feedback visual para o usuário durante o processo de autenticação
+
+2. SISTEMA DE INTERNACIONALIZAÇÃO
+- Suporte a 6 idiomas:
+  * Português (BR)
+  * Inglês (EN)
+  * Espanhol (ES)
+  * Francês (FR)
+  * Chinês (ZH)
+  * Árabe (AR)
+- Seletor de idiomas otimizado na interface
+- Traduções dinâmicas em toda a aplicação
+- Persistência da escolha do idioma
+
+3. INTERFACE E DESIGN
+- Layout responsivo e moderno
+- Sidebar fixa com gradiente e animações
+- Menu hamburguer estilizado com efeitos visuais
+- Cards informativos com posicionamento otimizado
+- Design adaptado à identidade visual da Ford
+- Transições e animações suaves entre componentes
+
+4. DASHBOARD
+- Visualização de informações dos veículos
+- Layout otimizado com conteúdo após a sidebar
+- Sistema de cards informativos
+- Área de trabalho principal com dados relevantes
+- Navegação intuitiva entre diferentes seções
+
+5. COMPONENTES PRINCIPAIS
+- Menu de navegação responsivo
+- Formulários de login e registro
+- Seletor de idiomas
+- Cards de informação
+- Botões estilizados com gradientes
+- Componentes de feedback visual
+
+6. RECURSOS TÉCNICOS
+- Desenvolvido em Angular (framework moderno)
+- Arquitetura de componentes modular
+- Sistema de rotas otimizado
+- Gerenciamento de estado
+- Integração com APIs
+- Validações de formulários
+- Guardas de rota para segurança
+
+7. EXPERIÊNCIA DO USUÁRIO (UX)
+- Interface intuitiva e amigável
+- Feedback visual para ações do usuário
+- Mensagens de erro e sucesso claras
+- Navegação simplificada
+- Carregamento otimizado de conteúdo
+- Adaptação para diferentes dispositivos
+
+8. SEGURANÇA
+- Autenticação segura de usuários
+- Proteção de rotas sensíveis
+- Validação de dados de entrada
+- Tratamento seguro de informações
+- Tokens de autenticação
+
+9. PERFORMANCE
+- Carregamento otimizado de recursos
+- Lazy loading de módulos
+- Minificação de arquivos
+- Otimização de imagens
+- Cache eficiente
+
+10. MANUTENIBILIDADE
+- Código organizado e documentado
+- Estrutura de arquivos clara
+- Componentes reutilizáveis
+- Padrões de projeto consistentes
+- Facilidade de atualização e expansão 

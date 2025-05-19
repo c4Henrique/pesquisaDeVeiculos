@@ -1,0 +1,33 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.open]="isSidebarOpen">
+    <div class="sidebar-header">
+      <button class="toggle-btn" (click)="toggleSidebar">
+        <span class="hamburger"></span>
+      </button>
+      <h3>Bem-vindo ao sistema Ford!</h3>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+      <a routerLink="/calculator" routerLinkActive="active">Calculadora</a>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Welcome Message -->
+    <div class="welcome-message" *ngIf="showWelcomeMessage">
+      <div class="message-content">
+        <h2>Bem-vindo ao sistema Ford!</h2>
+        <button class="close-btn" (click)="closeWelcomeMessage">×</button>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div> 

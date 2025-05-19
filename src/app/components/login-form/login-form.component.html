@@ -1,0 +1,98 @@
+<div class="login-container">
+  <div class="background-overlay"></div>
+  
+  <!-- Seletor de idiomas -->
+  <div class="language-selector">
+    <select [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
+      @for (lang of languages; track lang.code) {
+        <option [value]="lang.code">{{ lang.name }}</option>
+      }
+    </select>
+  </div>
+  
+  <!-- Container principal com animação -->
+  <div class="animated-content">
+    <!-- Lado esquerdo - Formulário -->
+    <div class="login-form-container slide-from-left">
+      <div class="login-form">
+        <h2 class="form-title">{{ translate('login.title') }}</h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitLoginForm()" class="login-form">
+          <div class="form-group">
+            <label for="username">{{ translate('login.username') }}</label>
+            <input type="text" id="username" formControlName="username" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="password">{{ translate('login.password') }}</label>
+            <input type="password" id="password" formControlName="password" class="form-control">
+          </div>
+
+          <div class="form-group lgpd-group">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="lgpd" formControlName="lgpd" class="form-check-input">
+              <label for="lgpd" class="form-check-label">
+                {{ translate('login.lgpd.accept') }}
+                <a href="#" (click)="showLgpdInfo(); $event.preventDefault()" class="lgpd-link">
+                  {{ translate('login.lgpd.learn_more') }}
+                </a>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
+              {{ translate('login.submit') }}
+            </button>
+          </div>
+
+          @if (errorMessage) {
+            <div class="error-message">
+              {{ errorMessage }}
+            </div>
+          }
+        </form>
+      </div>
+    </div>
+
+    <!-- Lado direito - Logo Ford com animação -->
+    <div class="ford-animation-container slide-from-right">
+      <img src="https://prodb2cuicontentdelivery-d0bbevfjaxfmedda.z01.azurefd.net/b2cui/assets/images/ford-logo.svg" 
+           alt="Ford Logo" 
+           class="ford-logo">
+      <div class="animation-text">
+        <h1>{{ translate('login.welcome') }}</h1>
+        <p>{{ translate('login.innovation') }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (showLgpdModal()) {
+  <div class="modal-overlay" (click)="closeLgpdModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ translate('login.lgpd.title') }}</h2>
+        <button class="close-button" (click)="closeLgpdModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ translate('login.lgpd.description') }}</p>
+        <h3>{{ translate('login.lgpd.rights.title') }}</h3>
+        <ul>
+          <li>{{ translate('login.lgpd.rights.access') }}</li>
+          <li>{{ translate('login.lgpd.rights.correction') }}</li>
+          <li>{{ translate('login.lgpd.rights.deletion') }}</li>
+          <li>{{ translate('login.lgpd.rights.portability') }}</li>
+          <li>{{ translate('login.lgpd.rights.restriction') }}</li>
+          <li>{{ translate('login.lgpd.rights.objection') }}</li>
+        </ul>
+        <p>{{ translate('login.lgpd.contact') }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeLgpdModal()">
+          {{ translate('login.lgpd.close') }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

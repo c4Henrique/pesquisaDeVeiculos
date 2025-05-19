@@ -1,0 +1,137 @@
+<div class="d-flex w-100 h-100">
+  <app-menu />
+  <div class="calculadora-container">
+    <!-- Seção de Cálculo de Consumo -->
+    <section class="secao-consumo">
+      <h2>Cálculo de Consumo Médio</h2>
+      
+      <div class="form-group">
+        <label for="distancia">Distância percorrida (km)</label>
+        <input 
+          type="number" 
+          id="distancia" 
+          [(ngModel)]="distancia" 
+          placeholder="Digite a distância"
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="litros">Quantidade de combustível (L)</label>
+        <input 
+          type="number" 
+          id="litros" 
+          [(ngModel)]="litros" 
+          placeholder="Digite a quantidade"
+          class="form-control">
+      </div>
+
+      <button (click)="calcularConsumo()" class="btn-calcular">
+        Calcular Consumo
+      </button>
+
+      <div class="resultado" *ngIf="consumoMedio">
+        <p>Seu consumo médio é de {{ consumoMedio | number:'1.1-1' }} km/l</p>
+      </div>
+    </section>
+
+    <!-- Seção de Análise de Preços -->
+    <section class="secao-precos">
+      <h2>Análise de Preços de Postos</h2>
+      
+      <div class="form-group">
+        <label for="precoLitro">Valor do litro (R$)</label>
+        <input 
+          type="number" 
+          id="precoLitro" 
+          [(ngModel)]="precoLitro" 
+          placeholder="Digite o preço"
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="tipoCombustivel">Tipo de Combustível</label>
+        <select 
+          id="tipoCombustivel" 
+          [(ngModel)]="tipoCombustivel"
+          class="form-control">
+          <option value="">Selecione...</option>
+          <option *ngFor="let combustivel of combustiveis" [value]="combustivel.nome">
+            {{ combustivel.nome }}
+          </option>
+        </select>
+        <button 
+          *ngIf="tipoCombustivel"
+          (click)="mostrarInfoCombustivel(tipoCombustivel)" 
+          class="btn-info">
+          ℹ️ Informações
+        </button>
+      </div>
+
+      <button (click)="adicionarPosto()" class="btn-adicionar">
+        Adicionar Posto
+      </button>
+
+      <!-- Lista de Postos -->
+      <div class="lista-postos" *ngIf="postos.length > 0">
+        <h3>Postos Adicionados</h3>
+        <ul>
+          <li *ngFor="let posto of postos">
+            P{{ posto.id }}: R$ {{ posto.preco | number:'1.2-2' }}
+            <span *ngIf="posto.tipoCombustivel">({{ posto.tipoCombustivel }})</span>
+            <button (click)="removerPosto(posto.id)" class="btn-remover">×</button>
+          </li>
+        </ul>
+
+        <!-- Estatísticas -->
+        <div class="estatisticas">
+          <p>Média de preços: R$ {{ mediaPrecos | number:'1.2-2' }}</p>
+          <p>Preço mais barato: R$ {{ precoMaisBarato | number:'1.2-2' }}</p>
+          <p>Preço mais caro: R$ {{ precoMaisCaro | number:'1.2-2' }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal de Informações do Combustível -->
+    <div class="modal-info" *ngIf="showInfoCombustivel && combustivelSelecionado">
+      <div class="modal-content">
+        <button (click)="fecharInfoCombustivel()" class="btn-fechar">×</button>
+        
+        <h3>{{ combustivelSelecionado.nome }}</h3>
+        <p class="descricao">{{ combustivelSelecionado.descricao }}</p>
+        
+        <div class="info-section">
+          <h4>Vantagens</h4>
+          <ul>
+            <li *ngFor="let vantagem of combustivelSelecionado.vantagens">
+              {{ vantagem }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-section">
+          <h4>Desvantagens</h4>
+          <ul>
+            <li *ngFor="let desvantagem of combustivelSelecionado.desvantagens">
+              {{ desvantagem }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-section">
+          <h4>Eficiência</h4>
+          <p>{{ combustivelSelecionado.eficiencia }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensagem de Erro -->
+    <div class="mensagem-erro" *ngIf="mensagemErro">
+      {{ mensagemErro }}
+    </div>
+
+    <!-- Botão Limpar -->
+    <button (click)="limparTudo()" class="btn-limpar">
+      Limpar Tudo
+    </button>
+  </div>
+</div> 

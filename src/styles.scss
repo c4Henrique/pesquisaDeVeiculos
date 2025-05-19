@@ -1,0 +1,38 @@
+@use "./_variables.scss" as vars;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #f9f9f9;
+  --bg-secondary: #ffffff;
+  --text-primary: #102B4E;
+  --text-secondary: #333333;
+  --border-color: #cccccc;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --accent-color: #0066FF;
+  --transition-speed: 0.3s;
+}
+
+.dark-theme {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --border-color: #404040;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+html, body {
+  font-family: vars.$font-family-base;
+  background-color: var(--bg-primary);
+  height: 100vh;
+  color: var(--text-primary);
+}
+
+.main-button {
+  background-color: #00095B;
+}

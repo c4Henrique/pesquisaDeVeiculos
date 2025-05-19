@@ -1,0 +1,664 @@
+@use "../../../_variables.scss" as vars;
+
+.login-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(16, 43, 78, 0.85) 0%, 
+    rgba(30, 74, 132, 0.85) 100%
+  );
+  overflow: hidden;
+  padding: 1rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://www.ford.com.br/content/dam/Ford/website-assets/latam/br/home/2024-territory/2024-territory-banner.jpg.dam.full.high.jpg/1707316994555.jpg') center/cover no-repeat;
+    z-index: -2;
+  }
+
+  // Divisória curva esportiva permanente
+  &::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 200%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    top: -50%;
+    right: -80%;
+    transform: rotate(-12deg);
+    border-radius: 50% 0 0 50%;
+    box-shadow: 
+      -5px 0 15px rgba(255, 255, 255, 0.1),
+      inset -2px 0 5px rgba(255, 255, 255, 0.05);
+    animation: pulseGlow 3s ease-in-out infinite;
+    z-index: -1;
+  }
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(16, 43, 78, 0.2);
+  overflow: hidden;
+  backdrop-filter: blur(3px);
+
+  // Linhas de velocidade
+  &::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: 
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.05) 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 75%,
+        transparent 100%
+      );
+    animation: shiftLines 8s linear infinite;
+    transform: rotate(-45deg);
+  }
+
+  // Efeito de brilho dinâmico
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle at 70% 30%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 60%
+    );
+    animation: pulseBrightness 4s ease-in-out infinite;
+  }
+}
+
+.animated-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+  overflow: hidden;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.login-form-container {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideFromLeft 1.2s ease-out;
+  padding: clamp(1rem, 5vw, 3rem);
+}
+
+.ford-animation-container {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: slideFromRight 1.2s ease-out;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  padding: clamp(2rem, 5vw, 4rem);
+  backdrop-filter: blur(5px);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    animation: energyFlow 3s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  .ford-logo {
+    width: clamp(150px, 30vw, 250px);
+    height: auto;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    animation: pulseLogo 2s infinite ease-in-out;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      filter: brightness(0) invert(1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+    }
+  }
+
+  .animation-text {
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      opacity: 0.9;
+    }
+  }
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .form-title {
+    color: #102B4E;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+      }
+    }
+  }
+
+  .form-check {
+    margin: clamp(1rem, 3vw, 1.5rem) 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .form-check-input {
+      width: clamp(16px, 2vw, 18px);
+      height: clamp(16px, 2vw, 18px);
+      border-color: #102B4E;
+      
+      &:checked {
+        background-color: #102B4E;
+        border-color: #102B4E;
+      }
+    }
+
+    .form-check-label {
+      color: #102B4E;
+      font-weight: 500;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+  }
+
+  .lgpd-group {
+    .checkbox-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .form-check-input {
+        margin-top: 0.25rem;
+      }
+
+      .form-check-label {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+
+        .lgpd-link {
+          color: #007bff;
+          text-decoration: none;
+          font-weight: 500;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &.btn-primary {
+      background-color: #007bff;
+      color: white;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+
+    &.btn-secondary {
+      background-color: #6c757d;
+      color: white;
+
+      &:hover {
+        background-color: #5a6268;
+      }
+    }
+  }
+
+  .form-footer {
+    margin-top: clamp(1rem, 3vw, 1.5rem);
+    text-align: center;
+
+    .forgot-password {
+      color: #102B4E;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-100%) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(100%) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseLogo {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.7;
+    transform: rotate(-12deg) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: rotate(-12deg) scale(1.02);
+  }
+}
+
+@keyframes moveSpeed {
+  0% {
+    transform: rotate(-15deg) translateX(0);
+  }
+  100% {
+    transform: rotate(-15deg) translateX(-20%);
+  }
+}
+
+@keyframes shiftLines {
+  0% {
+    transform: rotate(-45deg) translateX(0);
+  }
+  100% {
+    transform: rotate(-45deg) translateX(-50%);
+  }
+}
+
+@keyframes pulseBrightness {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes energyFlow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(2%) scale(1.02);
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .animated-content {
+    flex-direction: column;
+  }
+
+  .login-form-container,
+  .ford-animation-container {
+    width: 100%;
+  }
+
+  .ford-animation-container {
+    order: -1;
+    min-height: 250px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .login-form {
+    padding: 1.5rem;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 0.5rem;
+  }
+
+  .ford-animation-container {
+    min-height: 200px;
+  }
+}
+
+// Ajustes para telas muito altas
+@media (min-height: 800px) {
+  .login-form {
+    .form-group {
+      margin-bottom: clamp(1.5rem, 4vh, 2rem);
+    }
+  }
+}
+
+.language-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.lang-btn {
+  background: linear-gradient(135deg, rgba(16, 43, 78, 0.9) 0%, rgba(30, 74, 132, 0.9) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .flag {
+    font-size: 1.2rem;
+  }
+
+  .lang-name {
+    font-weight: 500;
+  }
+}
+
+.language-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 10px;
+  min-width: 200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .lang-option {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    color: #102B4E;
+
+    &:hover {
+      background: rgba(16, 43, 78, 0.1);
+      transform: translateX(5px);
+    }
+
+    &.active {
+      background: rgba(16, 43, 78, 0.15);
+      font-weight: 600;
+    }
+
+    .flag {
+      font-size: 1.2rem;
+    }
+
+    .lang-name {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Suporte para RTL
+:host-context([dir="rtl"]) {
+  .language-selector {
+    left: 20px;
+    right: auto;
+  }
+
+  .language-menu {
+    left: 0;
+    right: auto;
+  }
+
+  .lang-option {
+    &:hover {
+      transform: translateX(-5px) !important;
+    }
+  }
+}
+
+// Modal styles
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+
+  h3 {
+    margin: 1.5rem 0 1rem;
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+      color: #666;
+      line-height: 1.4;
+    }
+  }
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #dee2e6;
+  text-align: right;
+}
+

@@ -1,0 +1,341 @@
+.d-flex {
+  display: flex;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.calculadora-container {
+  flex: 1;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(249, 249, 249, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/img/background-02.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
+  }
+
+  section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(5px);
+
+    h2 {
+      color: #002244;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 10px;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+    position: relative;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.9);
+
+      &:focus {
+        outline: none;
+        border-color: #002244;
+      }
+    }
+
+    .btn-info {
+      position: absolute;
+      right: 0;
+      top: 32px;
+      background: none;
+      border: none;
+      color: #002244;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+
+  button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  .btn-calcular {
+    background-color: #002244;
+    color: white;
+
+    &:hover {
+      background-color: #003366;
+    }
+  }
+
+  .btn-adicionar {
+    background-color: #28a745;
+    color: white;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+
+  .btn-limpar {
+    background-color: #dc3545;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+
+  .resultado {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: rgba(232, 244, 255, 0.9);
+    border-radius: 6px;
+    color: #002244;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+  }
+
+  .lista-postos {
+    margin-top: 24px;
+
+    h3 {
+      color: #002244;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        background-color: rgba(248, 249, 250, 0.9);
+        border-radius: 6px;
+        margin-bottom: 8px;
+        backdrop-filter: blur(5px);
+
+        .btn-remover {
+          background: none;
+          color: #dc3545;
+          padding: 4px 8px;
+          font-size: 20px;
+          line-height: 1;
+
+          &:hover {
+            background-color: #ffebee;
+          }
+        }
+      }
+    }
+  }
+
+  .estatisticas {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: rgba(248, 249, 250, 0.9);
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
+
+    p {
+      margin: 8px 0;
+      color: #002244;
+      font-weight: 500;
+    }
+  }
+
+  .mensagem-erro {
+    background-color: rgba(255, 235, 238, 0.9);
+    color: #dc3545;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 16px 0;
+    text-align: center;
+    backdrop-filter: blur(5px);
+  }
+
+  // Modal de Informações
+  .modal-info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.98);
+      padding: 24px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      backdrop-filter: blur(10px);
+
+      .btn-fechar {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #666;
+        cursor: pointer;
+        padding: 4px 8px;
+        line-height: 1;
+
+        &:hover {
+          color: #dc3545;
+        }
+      }
+
+      h3 {
+        color: #002244;
+        margin-bottom: 16px;
+        padding-right: 32px;
+      }
+
+      .descricao {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .info-section {
+        margin-bottom: 20px;
+
+        h4 {
+          color: #002244;
+          margin-bottom: 12px;
+          font-size: 1.1rem;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+
+            &:before {
+              content: "•";
+              position: absolute;
+              left: 0;
+              color: #002244;
+            }
+          }
+        }
+
+        p {
+          color: #666;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .calculadora-container {
+    margin: 16px;
+    padding: 16px;
+
+    section {
+      padding: 16px;
+    }
+
+    button {
+      width: 100%;
+    }
+
+    .form-group {
+      .btn-info {
+        position: static;
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .modal-info {
+      .modal-content {
+        width: 95%;
+        padding: 16px;
+      }
+    }
+  }
+} 

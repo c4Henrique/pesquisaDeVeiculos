@@ -1,0 +1,28 @@
+<!-- Botão estilo hamburguer, fixo no canto superior esquerdo -->
+<button class="menu-toggle" type="button" (click)="menuOpen = !menuOpen">
+  <span class="hamburger-icon"></span>
+</button>
+
+<!-- Menu lateral customizado -->
+<nav class="custom-sidebar" [class.open]="menuOpen">
+  <div class="sidebar-header">
+    <img src="https://prodb2cuicontentdelivery-d0bbevfjaxfmedda.z01.azurefd.net/b2cui/assets/images/ford-logo.svg" alt="Ford Logo" />
+  </div>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <a routerLink="/home" routerLinkActive="active" (click)="menuOpen = false">
+        <span class="nav-text">Home</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/vehicle" routerLinkActive="active" (click)="menuOpen = false">
+        <span class="nav-text">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/calculadora" routerLinkActive="active" (click)="menuOpen = false">
+        <span class="nav-text">Calculadora</span>
+      </a>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,182 @@
+// Variáveis
+$primary-color: #102B4E;
+$accent-color: #0066FF;
+$text-light: #FFFFFF;
+$text-dark: #333333;
+$transition-speed: 0.3s;
+
+// Container principal
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(16, 43, 78, 0.95) 0%, rgba(0, 102, 255, 0.95) 100%);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://www.ford.com.br/content/dam/Ford/website-assets/latam/br/home/2024-territory/2024-territory-banner.jpg') center/cover no-repeat;
+        opacity: 0.1;
+        z-index: -1;
+    }
+}
+
+// Box de boas-vindas
+.welcome-box {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: transform $transition-speed ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+// Cabeçalho
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .logo-container img {
+        height: 40px;
+        width: auto;
+    }
+
+    .logout-container {
+        .close-btn {
+            background: none;
+            border: none;
+            color: $primary-color;
+            font-size: 2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all $transition-speed ease;
+
+            &:hover {
+                background-color: rgba($primary-color, 0.1);
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+// Conteúdo
+.welcome-content {
+    text-align: center;
+}
+
+.welcome-title {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.welcome-text {
+    color: $text-dark;
+    margin-bottom: 2rem;
+    text-align: center;
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        color: $primary-color;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 1.5rem 0;
+        text-align: left;
+
+        li {
+            margin: 0.8rem 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all $transition-speed ease;
+
+            &:hover {
+                background-color: rgba($primary-color, 0.05);
+            }
+        }
+    }
+}
+
+// Botão do Dashboard
+.dashboard-btn {
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    color: $text-light;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all $transition-speed ease;
+    margin-top: 1rem;
+
+    i {
+        transition: transform $transition-speed ease;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        i {
+            transform: translateX(5px);
+        }
+    }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+    .welcome-box {
+        padding: 1.5rem;
+    }
+
+    .welcome-title {
+        font-size: 2rem;
+    }
+
+    .welcome-text {
+        font-size: 0.9rem;
+
+        ul li {
+            font-size: 1rem;
+        }
+    }
+}
