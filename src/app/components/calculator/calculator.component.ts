@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calculator',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
@@ -13,6 +14,12 @@ export class CalculatorComponent {
   firstOperand: number | null = null;
   operator: string | null = null;
   waitingForSecondOperand: boolean = false;
+
+  // Gas station calculator properties
+  numStations: number = 1;
+  fuelPrice: number = 0;
+  fuelAmount: number = 0;
+  totalCost: number = 0;
 
   inputDigit(digit: string) {
     if (this.waitingForSecondOperand) {
@@ -64,5 +71,10 @@ export class CalculatorComponent {
       default:
         return secondOperand;
     }
+  }
+
+  // Gas station calculator methods
+  calculateTotal() {
+    this.totalCost = this.fuelPrice * this.fuelAmount;
   }
 } 

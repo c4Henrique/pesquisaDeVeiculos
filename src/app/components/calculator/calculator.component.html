@@ -1,26 +1,50 @@
 <div class="calculator">
-  <div class="display">{{ display }}</div>
-  <div class="buttons">
-    <button class="operator" (click)="clear()">C</button>
-    <button class="operator" (click)="performOperation('/')">/</button>
-    <button class="operator" (click)="performOperation('*')">×</button>
-    <button class="operator" (click)="performOperation('-')">-</button>
-    
-    <button (click)="inputDigit('7')">7</button>
-    <button (click)="inputDigit('8')">8</button>
-    <button (click)="inputDigit('9')">9</button>
-    <button class="operator" (click)="performOperation('+')">+</button>
-    
-    <button (click)="inputDigit('4')">4</button>
-    <button (click)="inputDigit('5')">5</button>
-    <button (click)="inputDigit('6')">6</button>
-    <button class="equals" (click)="performOperation('=')">=</button>
-    
-    <button (click)="inputDigit('1')">1</button>
-    <button (click)="inputDigit('2')">2</button>
-    <button (click)="inputDigit('3')">3</button>
-    <button class="zero" (click)="inputDigit('0')">0</button>
-    
-    <button (click)="inputDecimal()">.</button>
+  <div class="calculator-section">
+    <h3>Calculadora de Postos</h3>
+    <div class="input-group">
+      <label for="numStations">Número de Postos:</label>
+      <input type="number" id="numStations" [(ngModel)]="numStations" min="1" (input)="calculateTotal()">
+    </div>
+    <div class="input-group">
+      <label for="fuelPrice">Preço do Combustível (R$):</label>
+      <input type="number" id="fuelPrice" [(ngModel)]="fuelPrice" step="0.01" (input)="calculateTotal()">
+    </div>
+    <div class="input-group">
+      <label for="fuelAmount">Quantidade de Combustível (L):</label>
+      <input type="number" id="fuelAmount" [(ngModel)]="fuelAmount" step="0.1" (input)="calculateTotal()">
+    </div>
+    <div class="result">
+      <h4>Resultado:</h4>
+      <p>Total por Posto: R$ {{ (totalCost / numStations).toFixed(2) }}</p>
+      <p>Total Geral: R$ {{ totalCost.toFixed(2) }}</p>
+    </div>
+  </div>
+
+  <div class="calculator-section">
+    <h3>Calculadora Básica</h3>
+    <div class="display">{{ display }}</div>
+    <div class="buttons">
+      <button class="operator" (click)="clear()">C</button>
+      <button class="operator" (click)="performOperation('/')">/</button>
+      <button class="operator" (click)="performOperation('*')">×</button>
+      <button class="operator" (click)="performOperation('-')">-</button>
+      
+      <button (click)="inputDigit('7')">7</button>
+      <button (click)="inputDigit('8')">8</button>
+      <button (click)="inputDigit('9')">9</button>
+      <button class="operator" (click)="performOperation('+')">+</button>
+      
+      <button (click)="inputDigit('4')">4</button>
+      <button (click)="inputDigit('5')">5</button>
+      <button (click)="inputDigit('6')">6</button>
+      <button class="equals" (click)="performOperation('=')">=</button>
+      
+      <button (click)="inputDigit('1')">1</button>
+      <button (click)="inputDigit('2')">2</button>
+      <button (click)="inputDigit('3')">3</button>
+      <button class="zero" (click)="inputDigit('0')">0</button>
+      
+      <button (click)="inputDecimal()">.</button>
+    </div>
   </div>
 </div> 

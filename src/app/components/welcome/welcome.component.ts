@@ -25,12 +25,12 @@ import { CommonModule } from '@angular/common';
                 <div class="welcome-text">
                     <p>Seja bem-vindo ao sistema inteligente da Ford. Use o menu lateral para navegar pelas funcionalidades disponíveis.</p>
                     <ul>
-                        <li>🚗 <strong>Monitoramento em Tempo Real:</strong> Acompanhe a localização e status dos veículos em tempo real</li>
-                        <li>📊 <strong>Dashboard Analítico:</strong> Visualize métricas importantes e relatórios de desempenho</li>
-                        <li>🔧 <strong>Gestão de Manutenção:</strong> Controle de serviços e agendamentos de manutenção</li>    
-                        <li>📍 <strong>Rastreamento:</strong> Sistema de rastreamento avançado com histórico de rotas</li>
-                        <li>⛽ <strong>Calculadora de Consumo:</strong> Calcule o consumo de combustível e custos das viagens</li>
-                        <li>⚙️ <strong>Configurações:</strong> Personalize suas preferências e configurações do sistema</li>
+                        <li> <strong>Monitoramento em Tempo Real:</strong> Acompanhe a localização e status dos veículos em tempo real</li>
+                        <li> <strong>Dashboard Analítico:</strong> Visualize métricas importantes e relatórios de desempenho</li>
+                        <li> <strong>Gestão de Manutenção:</strong> Controle de serviços e agendamentos de manutenção</li>    
+                        <li> <strong>Rastreamento:</strong> Sistema de rastreamento avançado com histórico de rotas</li>
+                        <li> <strong>Calculadora de Consumo:</strong> Calcule o consumo de combustível e custos das viagens</li>
+                        <li> <strong>Configurações:</strong> Personalize suas preferências e configurações do sistema</li>
                     </ul>
                 </div>
                 

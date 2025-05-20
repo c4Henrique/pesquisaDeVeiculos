@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateService } from '../service/translate.service';
 
+interface Station {
+  id: number;
+  price: number;
+}
+
 @Component({
   selector: 'app-calculator',
   standalone: true,
@@ -15,6 +20,39 @@ import { TranslateService } from '../service/translate.service';
       </div>
 
       <div class="calculator-content">
+        <div class="input-group">
+          <label for="numStations">{{ translate('calculator.stations') }}</label>
+          <div class="input-wrapper">
+            <input 
+              type="number" 
+              id="numStations" 
+              [(ngModel)]="numStations" 
+              (input)="updateStations()"
+              min="1"
+              placeholder="1"
+            >
+            <span class="unit">postos</span>
+          </div>
+        </div>
+
+        <div class="stations-container" *ngIf="stations.length > 0">
+          <h3>{{ translate('calculator.station_prices') }}</h3>
+          <div class="station-input" *ngFor="let station of stations">
+            <label [for]="'station-' + station.id">{{ translate('calculator.station') }} {{ station.id }}</label>
+            <div class="input-wrapper">
+              <input 
+                [id]="'station-' + station.id"
+                type="number" 
+                [(ngModel)]="station.price" 
+                (input)="calculate()"
+                placeholder="0"
+                step="0.01"
+              >
+              <span class="unit">R$/l</span>
+            </div>
+          </div>
+        </div>
+
         <div class="input-group">
           <label for="distance">{{ translate('calculator.distance') }}</label>
           <div class="input-wrapper">
@@ -43,25 +81,22 @@ import { TranslateService } from '../service/translate.service';
           </div>
         </div>
 
-        <div class="input-group">
-          <label for="price">{{ translate('calculator.price') }}</label>
-          <div class="input-wrapper">
-            <input 
-              type="number" 
-              id="price" 
-              [(ngModel)]="price" 
-              (input)="calculate()"
-              placeholder="0"
-            >
-            <span class="unit">R$/l</span>
-          </div>
-        </div>
-
         <div class="result" *ngIf="result">
           <h3>{{ translate('calculator.result') }}</h3>
           <div class="result-value">
             <span class="amount">R$ {{ result.toFixed(2) }}</span>
             <span class="description">{{ translate('calculator.result_description') }}</span>
+          </div>
+          <div class="result-value" *ngIf="stations.length > 1">
+            <span class="amount">R$ {{ (result / stations.length).toFixed(2) }}</span>
+            <span class="description">{{ translate('calculator.per_station') }}</span>
+          </div>
+          <div class="station-results" *ngIf="stations.length > 1">
+            <h4>{{ translate('calculator.individual_costs') }}</h4>
+            <div class="station-result" *ngFor="let station of stations">
+              <span class="station-name">{{ translate('calculator.station') }} {{ station.id }}:</span>
+              <span class="station-amount">R$ {{ (calculateStationCost(station.price)).toFixed(2) }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -125,6 +160,34 @@ import { TranslateService } from '../service/translate.service';
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 24px var(--shadow-color);
+      }
+    }
+
+    .stations-container {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background-color: var(--bg-primary);
+      border-radius: 8px;
+
+      h3 {
+        color: var(--text-primary);
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .station-input {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      label {
+        display: block;
+        color: var(--text-primary);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
       }
     }
 
@@ -199,6 +262,11 @@ import { TranslateService } from '../service/translate.service';
         flex-direction: column;
         gap: 0.5rem;
         align-items: center;
+        margin-bottom: 1rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
 
         .amount {
           color: var(--accent-color);
@@ -212,6 +280,40 @@ import { TranslateService } from '../service/translate.service';
           font-size: 1rem;
           max-width: 400px;
           margin: 0 auto;
+        }
+      }
+    }
+
+    .station-results {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+
+      h4 {
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .station-result {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .station-name {
+          color: var(--text-primary);
+          font-weight: 500;
+        }
+
+        .station-amount {
+          color: var(--accent-color);
+          font-weight: 600;
         }
       }
     }
@@ -260,18 +362,44 @@ import { TranslateService } from '../service/translate.service';
 export class CalculatorComponent {
   private translateService = inject(TranslateService);
 
+  numStations = 1;
   distance = 0;
   consumption = 0;
-  price = 0;
+  stations: Station[] = [];
   result = 0;
 
+  updateStations() {
+    const currentLength = this.stations.length;
+    const newLength = this.numStations;
+
+    if (newLength > currentLength) {
+      // Adicionar novos postos
+      for (let i = currentLength + 1; i <= newLength; i++) {
+        this.stations.push({ id: i, price: 0 });
+      }
+    } else if (newLength < currentLength) {
+      // Remover postos extras
+      this.stations = this.stations.slice(0, newLength);
+    }
+    this.calculate();
+  }
+
   calculate() {
-    if (this.distance && this.consumption && this.price) {
+    if (this.distance && this.consumption && this.stations.length > 0) {
       const liters = this.distance / this.consumption;
-      this.result = liters * this.price;
+      const averagePrice = this.stations.reduce((sum, station) => sum + station.price, 0) / this.stations.length;
+      this.result = liters * averagePrice;
     } else {
       this.result = 0;
     }
+  }
+
+  calculateStationCost(stationPrice: number): number {
+    if (this.distance && this.consumption) {
+      const liters = this.distance / this.consumption;
+      return liters * stationPrice;
+    }
+    return 0;
   }
 
   translate(key: string): string {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ford</title>    
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        /* Melhorando a aparência do carrossel */
+        #carousel {
+            width: 600px;
+            height: 300px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            background-color: #f4f4f4;
+        }
+
+        #carousel img {
+            max-width: 100%;
+            height: auto;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #carousel-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>       
+        <div>
+            <img src="img/logo-ford-256.png" width="150" class="logo" />
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lancamento.html">Lançamento</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Estrutura inicial para o carrossel -->
+        <div id="carousel">
+            <img src="img/imagem_1.jpg" alt="Carregando carrossel..." />
+        </div>
+        <div id="carousel-title">Carregando...</div>
+    </main>
+
+    <footer>
+        <nav id="social">
+            <ul>
+                <li><span class="redesociais">Redes Sociais</span></li>
+                <li><a href="#" title="Facebook"><img src="img/facebook-50.png"></a></li>
+                <li><a href="#" title="YouTube"><img src="img/youtube-squared-50.png"></a></li>
+                <li><a href="#" title="Instagram"><img src="img/instagram-logo-50.png"></a></li>
+            </ul>
+        </nav>
+        <div>
+           <img src="img/ford-96.png" width="70" />
+        </div>
+    </footer>    
+
+    <!-- Carregar o carrossel.js antes de iniciar o script -->
+    <script src="js/carousel.js"></script>
+    <script>
+        window.onload = function() {
+            // Inserindo imagens no carrossel
+            carouselArr.push(new Carousel("img/imagem_1.jpg", "Esta é a nova Ranger Ford 2022. Verifique novidades.", "lancamento.html"));
+            carouselArr.push(new Carousel("img/imagem_2.jpg", "Ford, a nossa história", "#"));
+            carouselArr.push(new Carousel("img/imagem_3.jpg", "Nova Ford Bronco Sport 2022", "lancamento.html"));
+
+            // Iniciar o carrossel
+            Carousel.Start(carouselArr);
+        };
+    </script>
+</body>
+</html>

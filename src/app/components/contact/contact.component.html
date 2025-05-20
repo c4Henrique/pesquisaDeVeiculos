@@ -1,0 +1,83 @@
+<div class="contact-container">
+  <div class="contact-content">
+    <div class="contact-image">
+      <img src="assets/images/territory.png" alt="Ford Territory">
+    </div>
+    <div class="contact-form">
+      <h2 class="title">Sobre Você</h2>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input 
+            type="text" 
+            formControlName="nome" 
+            placeholder="NOME*" 
+            class="ford-input"
+            required>
+        </div>
+
+        <div class="form-group">
+          <input 
+            type="text" 
+            formControlName="sobrenome" 
+            placeholder="SOBRENOME*" 
+            class="ford-input"
+            required>
+        </div>
+
+        <div class="form-group">
+          <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="E-MAIL*" 
+            class="ford-input"
+            required>
+        </div>
+
+        <div class="form-group">
+          <input 
+            type="text" 
+            formControlName="cpf" 
+            placeholder="CPF*" 
+            class="ford-input"
+            required>
+        </div>
+
+        <div class="form-group">
+          <input 
+            type="tel" 
+            formControlName="telefone" 
+            placeholder="TELEFONE*" 
+            class="ford-input"
+            required>
+        </div>
+
+        <div class="form-group">
+          <select 
+            formControlName="contato" 
+            class="ford-input"
+            required>
+            <option value="" disabled selected>COMO DESEJA SER CONTATADO</option>
+            <option value="TELEFONE">TELEFONE</option>
+            <option value="E-MAIL">E-MAIL</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" [disabled]="!contactForm.valid">Enviar</button>
+        </div>
+
+        @if (errorMessage) {
+          <div class="error-message">
+            {{ errorMessage }}
+          </div>
+        }
+
+        @if (successMessage) {
+          <div class="success-message">
+            {{ successMessage }}
+          </div>
+        }
+      </form>
+    </div>
+  </div>
+</div>

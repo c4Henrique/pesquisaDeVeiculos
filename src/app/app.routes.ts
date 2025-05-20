@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LaunchComponent } from './components/launch/launch.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 export const routes: Routes = [
   {
@@ -35,7 +38,16 @@ export const routes: Routes = [
       {
         path: 'settings',
         loadComponent: () => import('./components/settings/settings.component').then(m => m.SettingsComponent)
+      },
+      {
+        path: 'launch',
+        component: LaunchComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
       }
     ]
-  }
+  },
+  { path: '**', redirectTo: '' }
 ];

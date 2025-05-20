@@ -1,0 +1,122 @@
+<p>launch works!</p>
+
+<!-- Carrossel de Vídeo -->
+<div class="video-container">
+  <iframe 
+    src="https://www.youtube-nocookie.com/embed/vQsryuNmsL0?controls=0&autoplay=1&modestbranding=0&loop=1&mute=1&rel=0&hd=1" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+<!-- Carrossel de Imagens -->
+<div class="carousel-container">
+  <div #carousel class="carousel">
+    <img [src]="currentImage" [alt]="currentTitle" class="carousel-image">
+  </div>
+  <div class="carousel-title">{{ currentTitle }}</div>
+</div>
+
+<!-- Lista de Modelos -->
+<div class="models-container">
+  <ul class="model-cars">
+    @for (car of cars; track car.model) {
+      <li>
+        <img [src]="car.image" class="car-photo">
+        <div class="car-info">
+          <div>
+            <input 
+              type="checkbox" 
+              [value]="car.model" 
+              class="checkbox" 
+              (change)="setCarToCompare($event, car)">
+          </div>
+          <div class="info">
+            <span class="text-model">{{ car.model }}</span>
+            <span class="text-price">Preço Sugerido: R$ {{ car.price | number:'1.2-2' }}</span>
+          </div>
+          <div>
+            <img src="/assets/images/info.png" alt="Informações">
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+</div>
+
+<!-- Botão de Comparação -->
+<div class="compare-button-container">
+  <button type="button" (click)="showCompare()">Comparar Carros</button>
+</div>
+
+<!-- Modal de Comparação -->
+@if (showComparison) {
+  <div class="compare-modal">
+    <div class="compare-content">
+      <table>
+        <tbody>
+          <tr>
+            <td>&nbsp;</td>
+            <td [id]="'compare_image_0'"></td>
+            <td [id]="'compare_image_1'"></td>
+          </tr>
+          <tr>
+            <td>Modelo</td>
+            <td [id]="'compare_modelo_0'"></td>
+            <td [id]="'compare_modelo_1'"></td>
+          </tr>
+          <tr>
+            <td>Altura da caçamba (mm)</td>
+            <td [id]="'compare_alturacacamba_0'"></td>
+            <td [id]="'compare_alturacacamba_1'"></td>
+          </tr>
+          <tr>
+            <td>Altura do veículo (mm)</td>
+            <td [id]="'compare_alturaveiculo_0'"></td>
+            <td [id]="'compare_alturaveiculo_1'"></td>
+          </tr>
+          <tr>
+            <td>Altura livre do solo (mm)</td>
+            <td [id]="'compare_alturasolo_0'"></td>
+            <td [id]="'compare_alturasolo_1'"></td>
+          </tr>
+          <tr>
+            <td>Capacidade de carga (Kg)</td>
+            <td [id]="'compare_capacidadecarga_0'"></td>
+            <td [id]="'compare_capacidadecarga_1'"></td>
+          </tr>
+          <tr>
+            <td>Motor</td>
+            <td [id]="'compare_motor_0'"></td>
+            <td [id]="'compare_motor_1'"></td>
+          </tr>
+          <tr>
+            <td>Potência (cv)</td>
+            <td [id]="'compare_potencia_0'"></td>
+            <td [id]="'compare_potencia_1'"></td>
+          </tr>
+          <tr>
+            <td>Volume de caçamba (L)</td>
+            <td [id]="'compare_volumecacamba_0'"></td>
+            <td [id]="'compare_volumecacamba_1'"></td>
+          </tr>
+          <tr>
+            <td>Roda</td>
+            <td [id]="'compare_roda_0'"></td>
+            <td [id]="'compare_roda_1'"></td>
+          </tr>
+          <tr>
+            <td>Preço</td>
+            <td [id]="'compare_preco_0'"></td>
+            <td [id]="'compare_preco_1'"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="compare-button-container">
+        <button type="button" (click)="hideCompare()">Fechar</button>
+      </div>
+    </div>
+  </div>
+}

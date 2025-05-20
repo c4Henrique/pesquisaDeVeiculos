@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+    background: #FFFFFF;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Garante que o HTML ocupe toda a tela */
+html {
+    height: 100%;
+}
+
+/* Estilização do carrossel */
+div#carousel {
+    height: 46vh;
+    width: 100%;
+    max-height: 500px;
+    display: flex; /* Centraliza a imagem */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    transition: all 0.3s ease-in-out;
+}
+
+div#carousel img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Garante que a imagem se ajuste sem deformar */
+}
+
+/* Estilização do título do carrossel */
+div#carousel-title {
+    display: block;
+    text-align: center;
+    margin: 10px auto;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+div#carousel-title a {
+    text-decoration: none;
+    color: #1351d8;
+}
+
+div#carousel-title a:hover {
+    color: #1b357e;
+}
+
+/* Estilização do cabeçalho */
+header {
+    background: #FFFFFF;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+header nav {
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+}
+
+header nav ul {
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+header nav li {
+    list-style: none;
+}
+
+header nav a {
+    color: #1351d8;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 900;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+header nav a:hover {
+    color: #fff;
+    background-color: #1b357e;
+}
+
+/* Estilização do rodapé */
+footer {
+    background: #1B357E;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: auto; /* Empurra o rodapé para o final da tela */
+}
+footer div {
+    float: right;
+    margin-right: 40px;
+}
+
+nav#social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav#social ul {
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+nav#social ul li {
+    list-style: none;
+}
+
+nav#social ul img {
+    width: 28px;
+}
+
+span.redesociais {
+    color: #ffffff;
+}
+
+/* Botões */
+button {
+    background: #1351d8;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #1b357e;
+    transform: scale(1.05);
+}
