@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, tap, catchError } from 'rxjs';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,17 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    // Verificar se há um usuário salvo no localStorage
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      const user = JSON.parse(savedUser);
-      this.isAuthenticatedSubject.next(true);
-      this.usernameSubject.next(user.nome);
+    if (isPlatformBrowser(this.platformId)) {
+      // Verificar se há um usuário salvo no localStorage
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        this.isAuthenticatedSubject.next(true);
+        this.usernameSubject.next(user.nome);
+      }
     }
   }
 
@@ -30,7 +34,9 @@ export class AuthService {
         // Se chegou aqui, significa que a autenticação foi bem sucedida
         this.isAuthenticatedSubject.next(true);
         this.usernameSubject.next(response.nome);
-        localStorage.setItem('user', JSON.stringify({ nome: response.nome }));
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('user', JSON.stringify({ nome: response.nome }));
+        }
       }),
       catchError((error) => {
         console.error('Erro na autenticação:', error);
@@ -42,7 +48,9 @@ export class AuthService {
   logout(): void {
     this.isAuthenticatedSubject.next(false);
     this.usernameSubject.next('');
-    localStorage.removeItem('user');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('user');
+    }
     this.router.navigate(['/login']);
   }
 

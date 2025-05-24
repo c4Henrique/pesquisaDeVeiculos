@@ -3,7 +3,7 @@
   
   <!-- Seletor de idiomas -->
   <div class="language-selector">
-    <select [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
+    <select [formControl]="languageControl" (change)="changeLanguage()">
       @for (lang of languages; track lang.code) {
         <option [value]="lang.code">{{ lang.name }}</option>
       }
@@ -15,22 +15,63 @@
     <!-- Lado esquerdo - Formulário -->
     <div class="login-form-container slide-from-left">
       <div class="login-form">
-        <h2 class="form-title">{{ translate('login.title') }}</h2>
+        <div class="form-header">
+          <h2 class="form-title">{{ translate('login.title') }}</h2>
+          <p class="form-subtitle">{{ translate('login.subtitle') }}</p>
+        </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmitLoginForm()" class="login-form">
           <div class="form-group">
-            <label for="username">{{ translate('login.username') }}</label>
-            <input type="text" id="username" formControlName="username" class="form-control">
+            <label for="username" class="form-label">
+              <i class="bi bi-person"></i>
+              {{ translate('login.username') }}
+            </label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-person"></i>
+              </span>
+              <input 
+                type="text" 
+                id="username" 
+                formControlName="username" 
+                class="form-control"
+                placeholder="{{ translate('login.username_placeholder') }}"
+                tabindex="1">
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="password">{{ translate('login.password') }}</label>
-            <input type="password" id="password" formControlName="password" class="form-control">
+            <label class="form-label" for="password">
+              <i class="bi bi-lock"></i>
+              {{ translate('login.password') }}
+            </label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input 
+                type="password" 
+                id="password" 
+                formControlName="password" 
+                class="form-control"
+                placeholder="{{ translate('login.password_placeholder') }}"
+                tabindex="2">
+              <span class="input-group-text">
+                <button 
+                  type="button" 
+                  class="btn-toggle-password" 
+                  (click)="togglePasswordVisibility()"
+                  [attr.aria-label]="showPassword ? 'Ocultar senha' : 'Mostrar senha'"
+                >
+                  <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                </button>
+              </span>
+            </div>
           </div>
 
           <div class="form-group lgpd-group">
             <div class="checkbox-wrapper">
-              <input type="checkbox" id="lgpd" formControlName="lgpd" class="form-check-input">
+              <input type="checkbox" id="lgpd" formControlName="lgpd" class="form-check-input" tabindex="3">
               <label for="lgpd" class="form-check-label">
                 {{ translate('login.lgpd.accept') }}
                 <a href="https://www.ford.com.br/politica-de-privacidade/" target="_blank" class="lgpd-link">
@@ -41,14 +82,20 @@
           </div>
 
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
-              {{ translate('login.submit') }}
+            <button 
+              type="submit" 
+              class="btn btn-ford" 
+              [disabled]="!loginForm.valid"
+              tabindex="4">
+              <span class="btn-text">{{ translate('login.submit') }}</span>
+              <i class="bi bi-arrow-right"></i>
             </button>
           </div>
 
-          @if (errorMessage) {
-            <div class="error-message">
-              {{ errorMessage }}
+          @if (errorMessage()) {
+            <div class="error-message fade-in">
+              <i class="bi bi-exclamation-circle"></i>
+              {{ errorMessage() }}
             </div>
           }
         </form>
@@ -56,14 +103,11 @@
     </div>
 
     <!-- Lado direito - Logo Ford com animação -->
-    <div class="ford-animation-container slide-from-right">
+    <div class="ford-logo-container slide-from-right">
+      <div class="logo-overlay"></div>
       <img src="https://prodb2cuicontentdelivery-d0bbevfjaxfmedda.z01.azurefd.net/b2cui/assets/images/ford-logo.svg" 
            alt="Ford Logo" 
            class="ford-logo">
-      <div class="animation-text">
-        <h1>{{ translate('login.welcome') }}</h1>
-        <p>{{ translate('login.innovation') }}</p>
-      </div>
     </div>
   </div>
 </div>

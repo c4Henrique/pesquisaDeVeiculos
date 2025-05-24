@@ -4,14 +4,14 @@ import { DecimalPipe } from '@angular/common';
 
 interface Car {
   model: string;
-  price: number;
-  bedHeight: number;
-  vehicleHeight: number;
-  groundClearance: number;
-  loadCapacity: number;
-  engine: number;
-  power: number;
-  bedVolume: number;
+  price: string;
+  bedHeight: string;
+  vehicleHeight: string;
+  groundClearance: string;
+  loadCapacity: string;
+  engine: string;
+  power: string;
+  bedVolume: string;
   wheel: string;
   image: string;
 }
@@ -35,42 +35,42 @@ export class LaunchComponent implements OnInit {
 
   cars: Car[] = [
     {
-      model: 'Ford Ranger 2024',
-      price: 183850,
-      bedHeight: 511,
-      vehicleHeight: 1821,
-      groundClearance: 232,
-      loadCapacity: 1234,
-      engine: 2.2,
-      power: 160,
-      bedVolume: 1420,
-      wheel: 'Aço Estampado 16',
+      model: 'Ford Ranger 2024 (Versão Limited V6)',
+      price: 'A partir de R$ 339.990',
+      bedHeight: '529 mm',
+      vehicleHeight: '1.884 mm',
+      groundClearance: '235 mm',
+      loadCapacity: '1.023 kg',
+      engine: '3.0 V6 Turbo Diesel',
+      power: '250 cv a 3.250 rpm',
+      bedVolume: '1.250 litros',
+      wheel: 'Liga leve 20" com pneus 265/55 R20',
       image: 'assets/images/ranger.png'
     },
     {
-      model: 'Ford Territory 2024',
-      price: 220690,
-      bedHeight: 511,
-      vehicleHeight: 1821,
-      groundClearance: 232,
-      loadCapacity: 1076,
-      engine: 2.2,
-      power: 160,
-      bedVolume: 1180,
-      wheel: 'Aço Estampado 16',
+      model: 'Ford Territory 2024 (Versão Titanium)',
+      price: 'A partir de R$ 187.900',
+      bedHeight: 'Não aplicável (SUV)',
+      vehicleHeight: '1.674 mm',
+      groundClearance: '215 mm',
+      loadCapacity: 'Não especificada',
+      engine: '1.5 Turbo a gasolina',
+      power: '150 cv a 5.300 rpm',
+      bedVolume: '420 litros (porta-malas)',
+      wheel: 'Liga leve 18" com pneus 235/50 R18',
       image: 'assets/images/territory.png'
     },
     {
       model: 'Ford Bronco Sport 2024',
-      price: 222790,
-      bedHeight: 511,
-      vehicleHeight: 1821,
-      groundClearance: 232,
-      loadCapacity: 1040,
-      engine: 3.2,
-      power: 200,
-      bedVolume: 1180,
-      wheel: 'Liga Leve 17',
+      price: 'A partir de R$ 257.800',
+      bedHeight: 'Não aplicável (SUV)',
+      vehicleHeight: '1.813 mm',
+      groundClearance: '223 mm',
+      loadCapacity: '441 kg',
+      engine: '2.0 EcoBoost a gasolina',
+      power: '253 cv a 5.500 rpm',
+      bedVolume: '482 litros (porta-malas)',
+      wheel: 'Liga leve 17" com pneus 225/65 R17',
       image: 'assets/images/broncoSport.png'
     }
   ];
@@ -152,7 +152,7 @@ export class LaunchComponent implements OnInit {
         { id: 'potencia', value: car.power },
         { id: 'volumecacamba', value: car.bedVolume },
         { id: 'roda', value: car.wheel },
-        { id: 'preco', value: `R$ ${car.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` }
+        { id: 'preco', value: car.price }
       ];
 
       fields.forEach(field => {

@@ -1,100 +1,96 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
-import { Router } from '@angular/router';
-import { TranslateService, Language } from '../../service/translate.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
-  private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
   private router = inject(Router);
-  private translateService = inject(TranslateService);
+  private authService = inject(AuthService);
 
-  loginForm = new FormGroup({
-    username: new FormControl("", [Validators.required]),
-    password: new FormControl("", [Validators.required]),
-    lgpd: new FormControl(false, [Validators.requiredTrue])
-  });
+  loginForm: FormGroup;
+  errorMessage = signal<string>('');
+  showLgpdModal = signal<boolean>(false);
+  showPassword: boolean = false;
 
-  authorized = signal(false);
-  errorMessageSignal = signal("");
-  isLanguageMenuOpen = signal(false);
-  currentLang: Language = 'pt';
-  languages = this.translateService.getLanguages();
-  showLgpdModal = signal(false);
-  selectedLanguage = 'pt';
+  languages = [
+    { code: 'pt-BR', name: 'Português' },
+    { code: 'en', name: 'English' }
+  ];
+
+  languageControl = new FormControl('pt-BR');
 
   constructor() {
-    this.translateService.getCurrentLang().subscribe(lang => {
-      this.currentLang = lang;
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      lgpd: [false, [Validators.requiredTrue]]
     });
   }
 
-  // getter para usar no template
-  get errorMessage() {
-    return this.errorMessageSignal();
-  }
-
-  translate(key: string): string {
-    return this.translateService.translate(key);
-  }
-
-  getCurrentLanguageInfo() {
-    return this.languages.find(lang => lang.code === this.currentLang) || this.languages[0];
-  }
-
-  toggleLanguageMenu() {
-    this.isLanguageMenuOpen.set(!this.isLanguageMenuOpen());
+  onSubmitLoginForm() {
+    if (this.loginForm.valid) {
+      const { username, password } = this.loginForm.value;
+      
+      if (username === 'admin' && password === '123456') {
+        this.authService.login(username);
+        this.router.navigate(['/home']);
+      } else {
+        this.errorMessage.set('Usuário ou senha inválidos');
+      }
+    }
   }
 
   changeLanguage() {
-    this.translateService.setLanguage(this.selectedLanguage as 'pt' | 'en');
+    // Implementar mudança de idioma
+    console.log('Idioma alterado para:', this.languageControl.value);
   }
 
-  showLgpdInfo() {
-    this.showLgpdModal.set(true);
+  translate(key: string): string {
+    // Implementar tradução
+    const translations: { [key: string]: string } = {
+      'login.title': 'Bem-vindo',
+      'login.subtitle': 'Faça login para acessar o sistema',
+      'login.username': 'Usuário',
+      'login.username_placeholder': 'Digite seu nome',
+      'login.password': 'Senha',
+      'login.password_placeholder': 'Digite sua senha',
+      'login.lgpd.accept': 'Aceito os termos de privacidade',
+      'login.lgpd.learn_more': 'Saiba mais',
+      'login.submit': 'Entrar',
+      'login.lgpd.title': 'Termos de Privacidade',
+      'login.lgpd.description': 'Ao utilizar nosso sistema, você concorda com nossa política de privacidade.',
+      'login.lgpd.rights.title': 'Seus direitos incluem:',
+      'login.lgpd.rights.access': 'Acesso aos seus dados',
+      'login.lgpd.rights.correction': 'Correção de dados',
+      'login.lgpd.rights.deletion': 'Exclusão de dados',
+      'login.lgpd.rights.portability': 'Portabilidade de dados',
+      'login.lgpd.rights.restriction': 'Restrição de processamento',
+      'login.lgpd.rights.objection': 'Oposição ao processamento',
+      'login.lgpd.contact': 'Para mais informações, entre em contato conosco.',
+      'login.lgpd.close': 'Fechar'
+    };
+
+    return translations[key] || key;
   }
 
   closeLgpdModal() {
     this.showLgpdModal.set(false);
   }
 
-  onSubmitLoginForm() {
-    const { username, password, lgpd } = this.loginForm.value;
-
-    if (!this.loginForm.valid || !username || !password) {
-      this.errorMessageSignal.set(this.translate('login.error.empty'));
-      return;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    if (passwordInput) {
+      passwordInput.type = this.showPassword ? 'text' : 'password';
     }
-
-    if (!lgpd) {
-      this.errorMessageSignal.set(this.translate('login.error.lgpd'));
-      return;
-    }
-
-    this.authService.auth({ nome: username, senha: password }).subscribe({
-      next: () => {
-        this.errorMessageSignal.set("");
-        this.router.navigate(["/home"]);
-      },
-      error: (err) => {
-        console.error('Erro no login:', err);
-        if (err.status === 401) {
-          this.errorMessageSignal.set(this.translate('login.error.invalid'));
-        } else if (err.status === 0) {
-          this.errorMessageSignal.set('Erro de conexão com o servidor. Verifique se o servidor está rodando.');
-        } else {
-          this.errorMessageSignal.set(this.translate('login.error.internal'));
-        }
-      }
-    });
   }
 }

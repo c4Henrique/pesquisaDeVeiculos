@@ -11,7 +11,7 @@
       </h1>
       <div class="header-controls">
         <label class="theme-switch">
-          <input type="checkbox" [checked]="isDarkMode()" (change)="toggleTheme()">
+          <input type="checkbox" [checked]="isDarkMode$ | async" (change)="toggleTheme()">
           <span class="slider">
             <i class="bi bi-moon-fill moon"></i>
             <i class="bi bi-sun-fill sun"></i>
@@ -43,16 +43,18 @@
           @if(isEditingVin()) {
             <input [(ngModel)]="inputVin" (keydown.enter)="showVinInfos()" class="vin-input" placeholder="{{ vin }}" />
           } @else {
-            <span class="vin-value" (click)="editVin()">{{ vin }}</span>
+            <span class="vin-value" (click)="editVin()" [class.blurred]="hideInfos">{{ vin }}</span>
           }
+          <button class="hide-btn" (click)="toggleHideInfos()">{{ hideInfos ? 'Mostrar' : 'Ocultar' }}</button>
         </div>
         <ul class="info-list">
-          <li><span>Odômetro:</span> @if(vinInfos) { {{ vinInfos.odometro }}}Km</li>
-          <li><span>Combustível:</span> @if(vinInfos) { {{ vinInfos.nivelCombustivel }} }%</li>
-          <li><span>Status:</span> @if(vinInfos) { {{ vinInfos.status.toUpperCase() }} }</li>
-          <li><span>Latitude:</span> @if(vinInfos) { {{ vinInfos.lat }} }</li>
-          <li><span>Longitude:</span> @if(vinInfos) { {{ vinInfos.long }} }</li>
+          <li><span>Odômetro:</span> <span [class.blurred]="hideInfos">@if(vinInfos) { {{ vinInfos.odometro }}}Km</span></li>
+          <li><span>Combustível:</span> <span [class.blurred]="hideInfos">@if(vinInfos) { {{ vinInfos.nivelCombustivel }} }%</span></li>
+          <li><span>Status:</span> <span [class.blurred]="hideInfos">@if(vinInfos) { {{ vinInfos.status.toUpperCase() }} }</span></li>
+          <li><span>Latitude:</span> <span [class.blurred]="hideInfos">@if(vinInfos) { {{ vinInfos.lat }} }</span></li>
+          <li><span>Longitude:</span> <span [class.blurred]="hideInfos">@if(vinInfos) { {{ vinInfos.long }} }</span></li>
         </ul>
+        <button class="pdf-btn" (click)="generatePDF()">Gerar PDF</button>
       </div>
     </section>
   </div>

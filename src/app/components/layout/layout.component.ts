@@ -31,13 +31,26 @@ import { MenuComponent } from '../menu/menu.component';
     .layout {
       display: flex;
       min-height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
 
     .main-content {
       flex: 1;
       background-color: var(--bg-primary);
       min-height: 100vh;
+      width: 100%;
       transition: all 0.3s ease;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+
+      @media (max-width: 768px) {
+        margin: 0;
+      }
 
       .main-header {
         background-color: var(--bg-secondary);
@@ -46,21 +59,24 @@ import { MenuComponent } from '../menu/menu.component';
         position: sticky;
         top: 0;
         z-index: 100;
+        width: 100%;
 
         .header-content {
           display: flex;
           justify-content: flex-end;
           align-items: center;
-          max-width: 1400px;
-          margin: 0 auto;
+          width: 100%;
+          margin: 0;
           padding: 0 1rem;
         }
       }
 
       .content {
+        flex: 1;
         padding: 2rem;
-        max-width: 1400px;
-        margin: 0 auto;
+        width: 100%;
+        margin: 0;
+        min-height: calc(100vh - 80px); /* Subtract header height */
       }
     }
   `]

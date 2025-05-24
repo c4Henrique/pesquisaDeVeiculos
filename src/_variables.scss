@@ -6,5 +6,45 @@ $font-family-base: 'Roboto', sans-serif;
 $font-family-secondary: 'Roboto Condensed', sans-serif;
 
 // Colors
-$bg: #F4F4F4;
-$text-highlight: #102B4E
+:root {
+  // Theme Colors
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --border-radius: 1.5rem;
+  --transition-speed: 0.3s;
+
+  // Brand Colors
+  --ford-blue: #00274D;
+  --ford-blue-light: #003399;
+  --accent-color: #0066FF;
+  --primary-color: #003478;
+  --secondary-color: #0056b3;
+
+  // Text Colors
+  --text-light: #FFFFFF;
+  --text-dark: #333333;
+
+  // Status Colors
+  --success-color: #28a745;
+  --success-bg: #d4edda;
+  --error-color: #dc3545;
+  --error-bg: #f8d7da;
+  --warning-color: #ffc107;
+  --warning-bg: #fff3cd;
+  --info-color: #17a2b8;
+  --info-bg: #d1ecf1;
+}
+
+// Dark Theme
+.dark-theme {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --text-dark: #ffffff;
+  --text-light: #333333;
+}

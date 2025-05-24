@@ -6,17 +6,17 @@
 <!-- Menu lateral customizado -->
 <nav class="custom-sidebar" [class.open]="menuOpen">
   <div class="sidebar-header">
-    <img src="https://prodb2cuicontentdelivery-d0bbevfjaxfmedda.z01.azurefd.net/b2cui/assets/images/ford-logo.svg" alt="Ford Logo" />
+    <img src="https://prodb2cuicontentdelivery-d0bbevfjaxfmedda.z01.azurefd.net/b2cui/assets/images/ford-logo.svg" alt="Logo Ford" />
   </div>
   <ul class="sidebar-nav">
     <li class="nav-item">
       <a routerLink="/home" routerLinkActive="active" (click)="menuOpen = false">
-        <span class="nav-text">Home</span>
+        <span class="nav-text">Início</span>
       </a>
     </li>
     <li class="nav-item">
       <a routerLink="/dashboard" routerLinkActive="active" (click)="menuOpen = false">
-        <span class="nav-text">Dashboard</span>
+        <span class="nav-text">Painel</span>
       </a>
     </li>
     <li class="nav-item">
@@ -32,6 +32,12 @@
     <li class="nav-item">
       <a routerLink="/calculator" routerLinkActive="active" (click)="menuOpen = false">
         <span class="nav-text">Calculadora</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a (click)="logout()" class="nav-link">
+        <i class="bi bi-box-arrow-right"></i>
+        <span class="nav-text">Sair</span>
       </a>
     </li>
   </ul>

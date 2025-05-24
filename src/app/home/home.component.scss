@@ -5,6 +5,10 @@ main {
     background-position: center;
     position: relative;
     transition: all 0.3s ease;
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
     
     &::before {
         content: '';
@@ -27,8 +31,11 @@ main {
 
 .d-flex {
     min-height: 100vh;
+    width: 100vw;
     position: relative;
     z-index: 1;
+    margin: 0;
+    padding: 0;
 }
 
 .w-100 {
@@ -36,7 +43,7 @@ main {
 }
 
 .h-100 {
-    height: 100%;
+    height: 100vh;
 }
 
 .bg-transparent {

@@ -1,3 +1,10 @@
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 // Variáveis de cores
 :host {
   --bg-primary: #f9f9f9;
@@ -101,10 +108,14 @@
 }
 
 .dashboard-container {
-  display: flex;
   min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
   background-color: var(--bg-primary);
+  display: flex;
+  font-family: 'Segoe UI', sans-serif;
   transition: all var(--transition-speed);
 }
 
@@ -344,4 +355,49 @@
       }
     }
   }
+}
+
+.blurred {
+  filter: blur(6px);
+  user-select: none;
+}
+
+.hide-btn {
+  margin-left: 1rem;
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.hide-btn:hover {
+  background: #003478;
+}
+
+.pdf-btn {
+  margin-top: 1.5rem;
+  background: #003478;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.pdf-btn:hover {
+  background: #0066FF;
+}
+
+.active-link {
+  color: #0066FF !important;
+  font-weight: bold;
+  border-bottom: 2px solid #0066FF;
+  background: transparent !important;
 }

@@ -1,52 +1,51 @@
 @use "../../../_variables.scss" as vars;
 
-.login-container {
-  min-height: 100vh;
-  width: 100vw;
+// Variáveis
+$ford-blue: #0061a8;
+$ford-blue-dark: #004d82;
+$ford-blue-light: #0077cc;
+$background-dark: #0d1117;
+$background-darker: #0a2740;
+$text-light: #ffffff;
+$text-muted: rgba(255, 255, 255, 0.7);
+$glass-bg: rgba(255, 255, 255, 0.1);
+$glass-border: rgba(255, 255, 255, 0.2);
+$glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin glassmorphism {
+  background: $glass-bg;
+  backdrop-filter: blur(10px);
+  border: 1px solid $glass-border;
+  box-shadow: $glass-shadow;
+}
+
+@mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  background: linear-gradient(135deg, 
-    rgba(16, 43, 78, 0.85) 0%, 
-    rgba(30, 74, 132, 0.85) 100%
-  );
+}
+
+// Reset e estilos globais
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('https://www.ford.com.br/content/dam/Ford/website-assets/latam/br/home/2024-territory/2024-territory-banner.jpg.dam.full.high.jpg/1707316994555.jpg') center/cover no-repeat;
-    z-index: -2;
-  }
-
-  // Divisória curva esportiva permanente
-  &::after {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 200%;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
-    top: -50%;
-    right: -80%;
-    transform: rotate(-12deg);
-    border-radius: 50% 0 0 50%;
-    box-shadow: 
-      -5px 0 15px rgba(255, 255, 255, 0.1),
-      inset -2px 0 5px rgba(255, 255, 255, 0.05);
-    animation: pulseGlow 3s ease-in-out infinite;
-    z-index: -1;
-  }
+// Container principal
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, $background-dark 0%, $background-darker 100%);
+  position: relative;
+  overflow: hidden;
 }
 
 .background-overlay {
@@ -55,215 +54,187 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(16, 43, 78, 0.2);
-  overflow: hidden;
+  background: 
+    radial-gradient(circle at 70% 30%, rgba(0, 97, 168, 0.1) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(0, 97, 168, 0.05) 0%, transparent 100%);
   backdrop-filter: blur(3px);
-
-  // Linhas de velocidade
-  &::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: 
-      linear-gradient(90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.05) 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.05) 75%,
-        transparent 100%
-      );
-    animation: shiftLines 8s linear infinite;
-    transform: rotate(-45deg);
-  }
-
-  // Efeito de brilho dinâmico
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle at 70% 30%,
-      rgba(255, 255, 255, 0.15) 0%,
-      transparent 60%
-    );
-    animation: pulseBrightness 4s ease-in-out infinite;
-  }
 }
 
+// Container animado
 .animated-content {
   position: relative;
   display: flex;
-  width: 100%;
-  min-height: 100vh;
-  background: transparent;
-  overflow: hidden;
-  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
   z-index: 1;
 }
 
+// Container do formulário
 .login-form-container {
   flex: 1;
   min-width: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: slideFromLeft 1.2s ease-out;
+  @include flex-center;
   padding: clamp(1rem, 5vw, 3rem);
+  animation: slideFromLeft 1.2s ease-out;
+  width: 50%;
 }
 
-.ford-animation-container {
-  flex: 1;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  animation: slideFromRight 1.2s ease-out;
-  background: rgba(255, 255, 255, 0.1);
-  position: relative;
-  padding: clamp(2rem, 5vw, 4rem);
-  backdrop-filter: blur(5px);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.1) 50%,
-      rgba(255, 255, 255, 0.05) 100%
-    );
-    animation: energyFlow 3s ease-in-out infinite;
-    z-index: -1;
-  }
-
-  .ford-logo {
-    width: clamp(150px, 30vw, 250px);
-    height: auto;
-    margin-bottom: clamp(1.5rem, 4vw, 3rem);
-    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-    animation: pulseLogo 2s infinite ease-in-out;
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: scale(1.05);
-      filter: brightness(0) invert(1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
-    }
-  }
-
-  .animation-text {
-    text-align: center;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-
-    h1 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    p {
-      font-size: clamp(1rem, 2vw, 1.4rem);
-      opacity: 0.9;
-    }
-  }
-}
-
+// Formulário
 .login-form {
   width: 100%;
   max-width: 400px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  @include glassmorphism;
+  border-radius: 20px;
+  padding: 2.5rem;
+  animation: fadeIn 0.5s ease-out;
 
-  .form-title {
-    color: #102B4E;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 600;
-    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+  .form-header {
     text-align: center;
+    margin-bottom: 2.5rem;
+
+    .ford-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 1.5rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .form-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: $text-light;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      color: $text-muted;
+    }
   }
 
   .form-group {
     margin-bottom: 1.5rem;
 
-    label {
+    .form-label {
       display: block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      color: $text-light;
       margin-bottom: 0.5rem;
-      color: #333;
-      font-weight: 500;
-    }
 
-    .form-control {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-      transition: border-color 0.2s;
-
-      &:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-      }
-    }
-  }
-
-  .form-check {
-    margin: clamp(1rem, 3vw, 1.5rem) 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    .form-check-input {
-      width: clamp(16px, 2vw, 18px);
-      height: clamp(16px, 2vw, 18px);
-      border-color: #102B4E;
-      
-      &:checked {
-        background-color: #102B4E;
-        border-color: #102B4E;
+      i {
+        margin-right: 0.5rem;
       }
     }
 
-    .form-check-label {
-      color: #102B4E;
-      font-weight: 500;
-      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    .input-group {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid $glass-border;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+
+      &:focus-within {
+        border-color: $ford-blue;
+        box-shadow: 0 0 0 2px rgba(0, 97, 168, 0.2);
+      }
+
+      .input-group-text {
+        background: transparent;
+        border: none;
+        color: $text-muted;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:last-child {
+          border-left: 1px solid $glass-border;
+        }
+
+        .btn-toggle-password {
+          background: transparent;
+          border: none;
+          color: $text-muted;
+          padding: 0;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+
+          &:hover {
+            color: $text-light;
+          }
+
+          &:focus {
+            outline: none;
+          }
+
+          i {
+            font-size: 1.1rem;
+          }
+        }
+      }
+
+      .form-control {
+        background: transparent;
+        border: none;
+        color: $text-light;
+        padding: 0.75rem 1rem;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        width: 100%;
+
+        &::placeholder {
+          color: $text-muted;
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
     }
   }
 
   .lgpd-group {
     .checkbox-wrapper {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.5rem;
 
       .form-check-input {
-        margin-top: 0.25rem;
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        border: 1px solid $glass-border;
+        background-color: transparent;
+
+        &:checked {
+          background-color: $ford-blue;
+          border-color: $ford-blue;
+        }
       }
 
       .form-check-label {
-        font-size: 0.9rem;
-        color: #666;
-        line-height: 1.4;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.85rem;
+        color: $text-muted;
+        margin: 0;
 
         .lgpd-link {
-          color: #007bff;
+          color: $ford-blue-light;
           text-decoration: none;
-          font-weight: 500;
+          transition: color 0.3s ease;
 
           &:hover {
+            color: $ford-blue;
             text-decoration: underline;
           }
         }
@@ -271,148 +242,247 @@
     }
   }
 
-  .btn {
+  .btn-ford {
     width: 100%;
-    padding: 0.75rem;
+    padding: 1rem;
+    background: $ford-blue;
+    color: $text-light;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 
-    &.btn-primary {
-      background-color: #007bff;
-      color: white;
+    .btn-text {
+      position: relative;
+      z-index: 1;
+    }
 
-      &:hover {
-        background-color: #0056b3;
+    i {
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $ford-blue-dark;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      &::before {
+        transform: translateX(0);
       }
 
-      &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
+      i {
+        transform: translateX(5px);
       }
     }
 
-    &.btn-secondary {
-      background-color: #6c757d;
-      color: white;
+    &:disabled {
+      background: rgba(255, 255, 255, 0.1);
+      cursor: not-allowed;
 
-      &:hover {
-        background-color: #5a6268;
+      &::before {
+        display: none;
       }
     }
   }
 
-  .form-footer {
-    margin-top: clamp(1rem, 3vw, 1.5rem);
-    text-align: center;
+  .error-message {
+    background: rgba(255, 77, 77, 0.1);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: #ff4d4d;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-    .forgot-password {
-      color: #102B4E;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    i {
+      font-size: 1.1rem;
+    }
 
-      &:hover {
-        text-decoration: underline;
-      }
+    &.fade-in {
+      animation: fadeIn 0.3s ease-out;
     }
   }
 }
 
-.error-message {
-  color: #dc3545;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  border-radius: 4px;
+// Container da logo Ford
+.ford-logo-container {
+  flex: 1;
+  min-width: 320px;
+  position: relative;
+  overflow: hidden;
+  animation: slideFromRight 1.2s ease-out;
+  @include flex-center;
+  width: 50%;
+
+  .logo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+      rgba(0, 97, 168, 0.2) 0%,
+      transparent 100%
+    );
+    z-index: 1;
+  }
+
+  .ford-logo {
+    width: clamp(200px, 40vw, 400px);
+    height: auto;
+    filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    animation: pulseLogo 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+
+    &:hover {
+      transform: scale(1.05);
+      filter: brightness(0) invert(1) drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+    }
+  }
+}
+
+// Container do carro
+.ford-car-container {
+  flex: 1;
+  min-width: 320px;
+  position: relative;
+  overflow: hidden;
+  animation: slideFromRight 1.2s ease-out;
+
+  .car-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+      rgba(0, 97, 168, 0.2) 0%,
+      transparent 100%
+    );
+    z-index: 1;
+  }
+
+  .ford-car {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.1);
+    transform: translateY(10%);
+    animation: floatCar 6s ease-in-out infinite;
+  }
+}
+
+// Seletor de idiomas
+.language-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid $glass-border;
+    border-radius: 8px;
+    color: $text-light;
+    padding: 0.5rem 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $ford-blue;
+      box-shadow: 0 0 0 2px rgba(0, 97, 168, 0.2);
+    }
+
+    option {
+      background: $background-darker;
+      color: $text-light;
+    }
+  }
+}
+
+// Animações
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideFromLeft {
-  0% {
-    transform: translateX(-100%) scale(0.9);
+  from {
+    transform: translateX(-100%);
     opacity: 0;
   }
-  100% {
-    transform: translateX(0) scale(1);
+  to {
+    transform: translateX(0);
     opacity: 1;
   }
 }
 
 @keyframes slideFromRight {
-  0% {
-    transform: translateX(100%) scale(0.9);
+  from {
+    transform: translateX(100%);
     opacity: 0;
   }
-  100% {
-    transform: translateX(0) scale(1);
+  to {
+    transform: translateX(0);
     opacity: 1;
+  }
+}
+
+@keyframes floatCar {
+  0%, 100% {
+    transform: translateY(10%);
+  }
+  50% {
+    transform: translateY(5%);
   }
 }
 
 @keyframes pulseLogo {
-  0% {
+  0%, 100% {
     transform: scale(1);
+    filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
   }
   50% {
     transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.7;
-    transform: rotate(-12deg) scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: rotate(-12deg) scale(1.02);
-  }
-}
-
-@keyframes moveSpeed {
-  0% {
-    transform: rotate(-15deg) translateX(0);
-  }
-  100% {
-    transform: rotate(-15deg) translateX(-20%);
-  }
-}
-
-@keyframes shiftLines {
-  0% {
-    transform: rotate(-45deg) translateX(0);
-  }
-  100% {
-    transform: rotate(-45deg) translateX(-50%);
-  }
-}
-
-@keyframes pulseBrightness {
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes energyFlow {
-  0%, 100% {
-    opacity: 0.5;
-    transform: translateX(0) scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: translateX(2%) scale(1.02);
+    filter: brightness(0) invert(1) drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
   }
 }
 
@@ -422,55 +492,35 @@
     flex-direction: column;
   }
 
-  .login-form-container,
-  .ford-animation-container {
+  .login-form-container {
+    padding: 1.5rem;
     width: 100%;
   }
 
-  .ford-animation-container {
-    order: -1;
-    min-height: 250px;
-    padding: clamp(1.5rem, 4vw, 2.5rem);
+  .ford-logo-container {
+    display: none;
+  }
+
+  .ford-car-container {
+    display: none;
   }
 
   .login-form {
     padding: 1.5rem;
-  }
+    width: 100%;
+    max-width: none;
 
-  .modal-content {
-    width: 95%;
-    margin: 1rem;
-  }
-
-  .modal-header h2 {
-    font-size: 1.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .login-container {
-    padding: 0.5rem;
-  }
-
-  .ford-animation-container {
-    min-height: 200px;
-  }
-}
-
-// Ajustes para telas muito altas
-@media (min-height: 800px) {
-  .login-form {
-    .form-group {
-      margin-bottom: clamp(1.5rem, 4vh, 2rem);
+    .form-header {
+      .form-title {
+        font-size: 1.5rem;
+      }
     }
   }
-}
 
-.language-selector {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
+  .language-selector {
+    top: 10px;
+    right: 10px;
+  }
 }
 
 .lang-btn {

@@ -10,31 +10,29 @@
     <div class="welcome-box">
         <div class="header-section">
             <div class="logo-container">
-                <img src="https://prodb2cuicontentdelivery-d0bbevfjaxfmedda.z01.azurefd.net/b2cui/assets/images/ford-logo.svg" alt="Ford Logo">
+                <img src="assets/images/ford-logo.png" alt="Ford Logo">
             </div>
             <div class="logout-container">
-                <button class="close-btn" (click)="logOut()" title="Sair">×</button>
+                <button class="close-btn" (click)="logout()" title="Sair">×</button>
             </div>
         </div>
 
         <div class="welcome-content">
-            <h1 class="welcome-title">Olá, admin 👋</h1>
-            <div class="welcome-text">
-                <p>Seja bem-vindo ao sistema inteligente da Ford. Use o menu lateral para navegar pelas funcionalidades disponíveis.</p>
-                <ul>
-                    <li> <strong>Monitoramento em Tempo Real:</strong> Acompanhe a localização e status dos veículos em tempo real</li>
-                    <li> <strong>Dashboard Analítico:</strong> Visualize métricas importantes e relatórios de desempenho</li>
-                    <li> <strong>Gestão de Manutenção:</strong> Controle de serviços e agendamentos de manutenção</li>    
-                    <li> <strong>Rastreamento:</strong> Sistema de rastreamento avançado com histórico de rotas</li>
-                    <li> <strong>Calculadora de Consumo:</strong> Calcule o consumo de combustível e custos das viagens</li>
-                    <li> <strong>Configurações:</strong> Personalize suas preferências e configurações do sistema</li>
-                </ul>
-                <p class="highlight-text">{{ translate('welcome.highlight') }}</p>
-            </div>
+            <h1 class="welcome-title">Bem-vindo(a), {{ userName }}!</h1>
             
+            <div class="welcome-text">
+                <p>Estamos muito felizes em tê-lo(a) conosco. Aqui você encontrará todas as ferramentas necessárias para gerenciar suas atividades de forma eficiente.</p>
+                
+                <ul>
+                    <li><strong>Dashboard Personalizado:</strong> Acompanhe suas métricas principais em tempo real.</li>
+                    <li><strong>Gestão de Projetos:</strong> Organize e acompanhe todos os seus projetos em um só lugar.</li>
+                    <li><strong>Relatórios Detalhados:</strong> Acesse relatórios completos e análises detalhadas.</li>
+                </ul>
+            </div>
+
             <button class="dashboard-btn" (click)="goToDashboard()">
-                <span>{{ translate('welcome.button') }}</span>
-                <i class="bi bi-arrow-right"></i>
+                Acessar Dashboard
+                <i class="fas fa-arrow-right"></i>
             </button>
         </div>
     </div>

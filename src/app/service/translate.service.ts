@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
-export type Language = 'pt' | 'en';
+export type Language = 'pt' | 'en' | 'es';
 
 interface Translations {
   [key: string]: {
@@ -147,36 +148,47 @@ export class TranslateService {
       'home.features.analytics.description': 'Track your vehicles performance and consumption with graphs and reports.',
       'home.features.calculator.title': 'Cost Calculator',
       'home.features.calculator.description': 'Calculate your trip costs based on consumption and fuel price.',
+    },
+    es: {
+      // ... suas traduções em espanhol
     }
   };
 
-  private currentLang$ = new BehaviorSubject<Language>('pt');
+  private currentLang = new BehaviorSubject<Language>('pt');
+  currentLang$ = this.currentLang.asObservable();
 
-  constructor() {
-    const savedLang = localStorage.getItem('language') as Language;
-    if (savedLang && (savedLang === 'pt' || savedLang === 'en')) {
-      this.setLanguage(savedLang);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      const savedLang = localStorage.getItem('language') as Language;
+      if (savedLang && this.isValidLanguage(savedLang)) {
+        this.currentLang.next(savedLang);
+      }
     }
   }
 
-  getCurrentLang() {
-    return this.currentLang$.asObservable();
+  private isValidLanguage(lang: string): lang is Language {
+    return ['pt', 'en', 'es'].includes(lang);
   }
 
-  setLanguage(lang: Language) {
-    this.currentLang$.next(lang);
-    localStorage.setItem('language', lang);
+  setLanguage(lang: Language): void {
+    if (this.isValidLanguage(lang)) {
+      this.currentLang.next(lang);
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('language', lang);
+      }
+    }
   }
 
   translate(key: string): string {
-    const lang = this.currentLang$.value;
-    return this.translations[lang]?.[key] || key;
+    const lang = this.currentLang.value;
+    return this.translations[lang][key] || key;
   }
 
-  getLanguages() {
+  getLanguages(): { code: Language; name: string }[] {
     return [
       { code: 'pt', name: 'Português' },
-      { code: 'en', name: 'English' }
+      { code: 'en', name: 'English' },
+      { code: 'es', name: 'Español' }
     ];
   }
 } 

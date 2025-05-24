@@ -1,38 +1,213 @@
 @use "./_variables.scss" as vars;
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Fontes */
+@font-face {
+  font-family: 'Ford Antenna';
+  src: url('/assets/fonts/FordAntenna-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
-
-:root {
-  --bg-primary: #f9f9f9;
-  --bg-secondary: #ffffff;
-  --text-primary: #102B4E;
-  --text-secondary: #333333;
-  --border-color: #cccccc;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --accent-color: #0066FF;
-  --transition-speed: 0.3s;
-}
-
-.dark-theme {
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --border-color: #404040;
-  --shadow-color: rgba(0, 0, 0, 0.3);
+  font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  transition: background-color var(--transition-speed) ease,
+              color var(--transition-speed) ease,
+              border-color var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
+  max-width: 100%;
 }
 
 html, body {
-  font-family: vars.$font-family-base;
-  background-color: var(--bg-primary);
+  font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  background-color: var(--background-color);
   height: 100vh;
-  color: var(--text-primary);
+  color: var(--text-color);
+  margin: 0;
+  min-height: 100vh;
+  width: 100vw;
+  background: #f4f4f4;
+  transition: background 0.3s;
+  max-width: 100vw;
+  overflow-x: hidden;
+
+  &.dark-mode {
+    background: #0d1117;
+  }
 }
 
-.main-button {
-  background-color: #00095B;
+:root {
+  --bg-primary: var(--background-color);
+  --bg-secondary: var(--background-color);
+  --text-primary: var(--text-color);
+  --text-secondary: var(--text-color);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --accent-color: #0066FF;
+  --transition-speed: 0.3s;
+  --primary-color: #003478;
+  --secondary-color: #0056b3;
+  --text-color: #333;
+  --background-color: #ffffff;
+  --header-bg: var(--background-color);
+  --card-bg: var(--background-color);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --border-radius: 1.5rem;
+  --ford-blue: #00274D;
+  --ford-blue-light: #003399;
+  --text-light: #FFFFFF;
+  --text-dark: #333333;
+  --background-light: #F4F4F4;
+}
+
+.dark-theme {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e2f;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --primary-color: #4a90e2;
+  --secondary-color: #6ba4e7;
+  --text-color: #ffffff;
+  --background-color: #121212;
+  --header-bg: #1e1e2f;
+  --card-bg: #1e1e2f;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--background-light);
+  transition: background-color var(--transition-speed) ease;
+}
+
+body.dark-mode {
+  background-color: #0d1117;
+  color: var(--text-light);
+}
+
+/* Layout padrão */
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  padding: 0 1rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cards e Containers */
+.card, 
+.container,
+.section,
+.header,
+.footer {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .logo {
+    margin-bottom: 1rem;
+  }
+
+  .menu-toggle {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ford-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ford-blue-light);
+}
+
+/* Utilitários */
+.text-ford-blue {
+  color: var(--ford-blue);
+}
+
+.bg-ford-blue {
+  background-color: var(--ford-blue);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Mídia: evitar quebra por conteúdo largo */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Páginas específicas */
+.login-page,
+.home-page,
+.dashboard-page,
+.lancamento-page,
+.contato-page,
+.calculadora-page {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
